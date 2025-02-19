@@ -297,7 +297,7 @@ const handleSubmit = async (e) => {
         </div>
       </div>
 
-      <div className="my-10 max-w-full md:w-auto flex justify-center items-center">
+      <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
           <span className="loader"></span>
         ) : error ? (
