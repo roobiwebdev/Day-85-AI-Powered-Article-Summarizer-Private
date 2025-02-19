@@ -162,57 +162,56 @@ const Demo = () => {
     }
   }, []);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Check that the URL is valid
-  if (!article.url || typeof article.url !== "string") {
-    console.error("Article URL is invalid.");
-    return;
-  }
+    // Check that the URL is valid
+    if (!article.url || typeof article.url !== "string") {
+      console.error("Article URL is invalid.");
+      return;
+    }
 
-  let retryCount = 0;
-  const maxRetries = 3;
-  let response;
+    let retryCount = 0;
+    const maxRetries = 3;
+    let response;
 
-  while (retryCount < maxRetries) {
-    try {
-      response = await getSummary({ articleText: article.url });
+    while (retryCount < maxRetries) {
+      try {
+        response = await getSummary({ articleText: article.url });
 
-      if (response.error) {
-        console.error("API Error:", response.error);
-        break;
-      }
+        if (response.error) {
+          console.error("API Error:", response.error);
+          break;
+        }
 
-      const summaryText = response.data?.summary || "No summary available.";
+        const summaryText = response.data?.summary || "No summary available.";
 
-      const newArticle = {
-        ...article,
-        summary: summaryText,
-        id: uuidv4(),
-      };
+        const newArticle = {
+          ...article,
+          summary: summaryText,
+          id: uuidv4(),
+        };
 
-      const updatedArticles = [newArticle, ...allArticles];
-      setAllArticles(updatedArticles);
-      localStorage.setItem("articles", JSON.stringify(updatedArticles));
-      setArticle(newArticle);
-      break; // Exit loop after successful request
-    } catch (error) {
-      retryCount++;
-      console.error(`Attempt ${retryCount} failed:`, error);
+        const updatedArticles = [newArticle, ...allArticles];
+        setAllArticles(updatedArticles);
+        localStorage.setItem("articles", JSON.stringify(updatedArticles));
+        setArticle(newArticle);
+        break; // Exit loop after successful request
+      } catch (error) {
+        retryCount++;
+        console.error(`Attempt ${retryCount} failed:`, error);
 
-      if (retryCount === maxRetries) {
-        console.error("Max retries reached. Please try again later.");
-        // Optionally, you can show a user-friendly message here.
-      } else {
-        console.log("Retrying...");
-        // Wait for a short period before retrying
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 seconds delay
+        if (retryCount === maxRetries) {
+          console.error("Max retries reached. Please try again later.");
+          // Optionally, you can show a user-friendly message here.
+        } else {
+          console.log("Retrying...");
+          // Wait for a short period before retrying
+          await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 seconds delay
+        }
       }
     }
-  }
-};
-
+  };
 
   const handleCopy = (text) => {
     setCopied(text);
@@ -297,7 +296,7 @@ const handleSubmit = async (e) => {
         </div>
       </div>
 
-      <div className="my-10 max-w-full flex justify-center items-center">
+      <div className="my-10 w-full max-w-full flex justify-center items-center">
         {isFetching ? (
           <span className="loader"></span>
         ) : error ? (
@@ -310,16 +309,16 @@ const handleSubmit = async (e) => {
           </p>
         ) : (
           article.summary && (
-            <div className="flex flex-col gap-3 relative">
+            <div className="flex flex-col gap-3 relative w-[98%] md:w-full">
               <h2 className="font-satoshi font-bold text-gray-300 text-xl">
-                Article{" "}
+                Article
                 <span className="font-black bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   Summary
                 </span>
               </h2>
               <div className="rounded-xl border border-gray-800 bg-black/50 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-4 ">
                 {/* Typing Effect with paragraphs separated by newlines */}
-                <p className="font-inter font-medium text-sm text-gray-200 leading-relaxed whitespace-pre-wrap my-[.8em] white-space-pre">
+                <p className="font-inter font-medium text-sm text-gray-200 leading-relaxed whitespace-pre-wrap my-[.8em] white-space-pre break-words">
                   <Typewriter
                     words={[article.summary]}
                     loop={1}
