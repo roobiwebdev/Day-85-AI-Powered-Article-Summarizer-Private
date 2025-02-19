@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { copy, linkIcon, tick } from "../assets";
 import { useLazyGetSummaryQuery } from "../services/article";
-import { Trash2 } from "lucide-react";
+import { SendHorizontal, Trash2 } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
 const Demo = () => {
@@ -250,9 +250,9 @@ const Demo = () => {
           />
           <button
             type="submit"
-            className="hover:border-gray-300 hover:text-gray-300 absolute inset-y-0 right-0 my-1.5 mr-1.5 flex w-10 items-center justify-center rounded border border-gray-200 font-sans text-5xl pb-4 sm:pb-0 md:text-2xl font-medium text-gray-400 peer-focus:border-gray-100 peer-focus:text-gray-100"
+            className="hover:border-gray-300 hover:text-gray-300 absolute inset-y-0 right-0 my-1.5 mr-1.5 flex w-10 items-center justify-center rounded border border-gray-200 font-sans text-xl font-medium text-gray-400 peer-focus:border-gray-100 peer-focus:text-gray-100"
           >
-            <p>↵</p>
+            <SendHorizontal />
           </button>
         </form>
 
